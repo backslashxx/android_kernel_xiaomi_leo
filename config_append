@@ -1,0 +1,6 @@
+# selinux no audit
+CONFIG_AUDIT=n
+
+# KernelSU
+CONFIG_KSU=y
+CONFIG_KSU_LSM_SECURITY_HOOKS=n
