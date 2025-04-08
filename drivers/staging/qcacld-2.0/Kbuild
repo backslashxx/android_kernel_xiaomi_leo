@@ -965,7 +965,7 @@ endif
 
 EXTRA_CFLAGS += $(INCS)
 
-EXTRA_CFLAGS += -Wno-unused-function -Wno-unused-variable
+EXTRA_CFLAGS += -Wno-unused-function -Wno-unused-variable -Wno-misleading-indentation -Wno-bool-compare -Wno-address-of-packed-member -Wno-switch-unreachable
 
 CDEFINES :=	-DANI_LITTLE_BYTE_ENDIAN \
 		-DANI_LITTLE_BIT_ENDIAN \
