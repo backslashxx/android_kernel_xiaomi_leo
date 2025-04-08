@@ -1,10 +1,10 @@
 #!/bin/bash
 
 
-REAL_DIR="/tmp/optane/gcc/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9-lineage-19.1"
+REAL_DIR="/tmp/optane/gcc/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-gnu-6.4.1"
 export PATH="$REAL_DIR/bin:$PATH"
 
-export CROSS_COMPILE=aarch64-linux-android-
+export CROSS_COMPILE=aarch64-linux-gnu-
 export ARCH=arm64
 export SUBARCH=arm64
 export HEADER_ARCH=arm64
@@ -22,15 +22,15 @@ ARCH=arm64 scripts/kconfig/merge_config.sh -O out arch/arm64/configs/libra_user_
 
 
 make -j24 ARCH=arm64 O=out SUBARCH=arm64 O=out \
-	CC="ccache aarch64-linux-android-gcc" \
-        LD="aarch64-linux-android-ld.bfd" \
-        AR="aarch64-linux-android-ar" \
-        AS="aarch64-linux-android-as" \
-        NM="aarch64-linux-android-nm" \
-        OBJCOPY="aarch64-linux-android-objcopy" \
-        OBJDUMP="aarch64-linux-android-objdump" \
-        STRIP="aarch64-linux-android-strip" \
-        CROSS_COMPILE="ccache aarch64-linux-android-" \
+	CC="ccache aarch64-linux-gnu-gcc" \
+        LD="aarch64-linux-gnu-ld.bfd" \
+        AR="aarch64-linux-gnu-ar" \
+        AS="aarch64-linux-gnu-as" \
+        NM="aarch64-linux-gnu-nm" \
+        OBJCOPY="aarch64-linux-gnu-objcopy" \
+        OBJDUMP="aarch64-linux-gnu-objdump" \
+        STRIP="aarch64-linux-gnu-strip" \
+        CROSS_COMPILE="ccache aarch64-linux-gnu-" \
 	KBUILD_BUILD_USER="$(git rev-parse --short HEAD | cut -c1-7)" \
 	KBUILD_BUILD_HOST="$(git symbolic-ref --short HEAD)" \
 #echo $LD
