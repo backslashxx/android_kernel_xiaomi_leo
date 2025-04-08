@@ -95,6 +95,7 @@
 		CPU0: cpu@0 {
 			device_type = "cpu";
 			compatible = "arm,cortex-a53";
+			clock-frequency = <1632000000>;
 			reg = <0x0>;
 			enable-method = "qcom,8994-arm-cortex-acc";
 			qcom,acc = <&acc0>;
@@ -119,6 +120,7 @@
 		CPU1: cpu@1 {
 			device_type = "cpu";
 			compatible = "arm,cortex-a53";
+			clock-frequency = <1632000000>;
 			reg = <0x1>;
 			enable-method = "qcom,8994-arm-cortex-acc";
 			qcom,acc = <&acc1>;
@@ -137,6 +139,7 @@
 		CPU2: cpu@2 {
 			device_type = "cpu";
 			compatible = "arm,cortex-a53";
+			clock-frequency = <1632000000>;
 			reg = <0x2>;
 			enable-method = "qcom,8994-arm-cortex-acc";
 			qcom,acc = <&acc2>;
@@ -155,6 +158,7 @@
 		CPU3: cpu@3 {
 			device_type = "cpu";
 			compatible = "arm,cortex-a53";
+			clock-frequency = <1632000000>;
 			reg = <0x3>;
 			enable-method = "qcom,8994-arm-cortex-acc";
 			qcom,acc = <&acc3>;
@@ -173,6 +177,7 @@
 		CPU4: cpu@100 {
 			device_type = "cpu";
 			compatible = "arm,cortex-a57";
+			clock-frequency = <1920000000>;
 			reg = <0x100>;
 			enable-method = "qcom,8994-arm-cortex-acc";
 			qcom,acc = <&acc4>;
@@ -197,6 +202,7 @@
 		CPU5: cpu@101 {
 			device_type = "cpu";
 			compatible = "arm,cortex-a57";
+			clock-frequency = <1920000000>;
 			reg = <0x101>;
 			enable-method = "qcom,8994-arm-cortex-acc";
 			qcom,acc = <&acc5>;
@@ -846,7 +852,8 @@
 				<  787200 384000 >,
 				<  864000 556800 >,
 				<  960000 729600 >,
-				< 1440000 787200 >;
+				< 1440000 787200 >,
+				< 1632000 800000 >;
 			cpu-to-dev-map-4 =
 				<  384000 134400 >,
 				<  480000 300000 >,
@@ -854,7 +861,8 @@
 				<  768000 556800 >,
 				<  960000 600000 >,
 				< 1440000 729600 >,
-				< 1824000 787200 >;
+				< 1824000 787200 >,
+				< 1920000 800000 >;
 		};
 	};
 
@@ -881,7 +889,9 @@
 			<  864000 >,
 			<  960000 >,
 			< 1248000 >,
-			< 1440000 >;
+			< 1440000 >,
+			< 1536000 >,
+			< 1632000 >;
 
 		qcom,cpufreq-table-4 =
 			<  384000 >,
@@ -896,7 +906,8 @@
 			< 1536000 >,
 			< 1632000 >,
 			< 1689600 >,
-			< 1824000 >;
+			< 1824000 >,
+			< 1920000 >;
 
 	};
 
@@ -934,7 +945,9 @@
 				<  864000000 7>,
 				<  960000000 8>,
 				< 1248000000 9>,
-				< 1440000000 10>;
+				< 1440000000 9>,
+				< 1536000000 10>,
+				< 1632000000 10>;
 		qcom,a57-speedbin0-v0 =
 				<	   0 0>,
 				<  384000000 5>,
@@ -949,7 +962,8 @@
 				< 1536000000 12>,
 				< 1632000000 13>,
 				< 1689600000 14>,
-				< 1824000000 15>;
+				< 1824000000 14>,
+				< 1920000000 15>;
 		qcom,cci-speedbin0-v0 =
 				<	   0 0>,
 				<  134400000 2>,
@@ -2737,7 +2751,7 @@
 		qcom,poll-ms = <250>;
 		qcom,limit-temp = <60>;
 		qcom,temp-hysteresis = <10>;
-		qcom,therm-reset-temp = <115>;
+		qcom,therm-reset-temp = <120>;
 		qcom,disable-ocr;
 		qcom,disable-psm;
 		qcom,disable-gfx-phase-ctrl;
