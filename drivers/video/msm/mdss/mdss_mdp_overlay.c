@@ -2839,6 +2839,12 @@ static ssize_t mdss_mdp_cmd_autorefresh_show(struct device *dev,
 	struct msm_fb_data_type *mfd = (struct msm_fb_data_type *)fbi->par;
 	struct mdss_mdp_ctl *ctl;
 
+	/*
+	 * The event timer was killed due to messing with pm qos, and no one
+	 * uses autorefresh anyway.
+	 */
+	return -EINVAL;
+
 	if (!mfd) {
 		pr_err("Invalid mfd structure\n");
 		return -EINVAL;
@@ -4159,7 +4165,7 @@ static int __handle_overlay_prepare(struct msm_fb_data_type *mfd,
 	struct mdss_data_type *mdata = mfd_to_mdata(mfd);
 	struct mdss_overlay_private *mdp5_data = mfd_to_mdp5_data(mfd);
 
-	struct mdp_overlay *sorted_ovs = NULL;
+	struct mdp_overlay sorted_ovs[OVERLAY_MAX];
 	struct mdp_overlay *req, *prev_req;
 
 	struct mdss_mdp_pipe *pipe, *left_blend_pipe;
@@ -4178,16 +4184,11 @@ static int __handle_overlay_prepare(struct msm_fb_data_type *mfd,
 	}
 
 	if (sort_needed) {
-		sorted_ovs = kzalloc(num_ovs * sizeof(*ip_ovs), GFP_KERNEL);
-		if (!sorted_ovs) {
-			pr_err("error allocating ovlist mem\n");
-			return -ENOMEM;
-		}
+		memset(sorted_ovs, 0, num_ovs * sizeof(*ip_ovs));
 		memcpy(sorted_ovs, ip_ovs, num_ovs * sizeof(*ip_ovs));
 		ret = __mdss_overlay_src_split_sort(mfd, sorted_ovs, num_ovs);
 		if (ret) {
 			pr_err("src_split_sort failed. ret=%d\n", ret);
-			kfree(sorted_ovs);
 			return ret;
 		}
 	}
@@ -4285,8 +4286,6 @@ validate_exit:
 		mdss_mdp_overlay_release(mfd, new_reqs);
 	}
 	mutex_unlock(&mdp5_data->ov_lock);
-
-	kfree(sorted_ovs);
 
 	return ret;
 }
@@ -5201,10 +5200,13 @@ int mdss_mdp_overlay_init(struct msm_fb_data_type *mfd)
 
 	mdss_irq = mdss_intr_line();
 
+	/* This is for an unused feature (autorefresh) and breaks pm qos */
+#if 0
 	mdp5_data->cpu_pm_hdl = add_event_timer(mdss_irq->irq, NULL,
 							(void *)mdp5_data);
 	if (!mdp5_data->cpu_pm_hdl)
 		pr_warn("%s: unable to add event timer\n", __func__);
+#endif
 
 	if (mfd->panel_info->cont_splash_enabled) {
 		rc = mdss_mdp_overlay_handoff(mfd);
